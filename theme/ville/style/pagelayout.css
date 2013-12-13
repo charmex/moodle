@@ -1,0 +1,31 @@
+.side-pre-only #page-content #region-main {
+    margin-left: 260px;
+}
+
+#page-content #region-pre {
+    width: 260px;
+}
+
+
+
+/* if side post only theme, use the below 
+
+.side-post-only #page-content #region-post {
+	 width: 240px;
+}
+
+.side-post-only #page-content #region-post-box {
+    margin-left: -240px;
+}
+
+.side-post-only #page-content #region-main {
+    margin-left: 240px;
+}
+
+.blocks-moving.side-post-only #page-content #region-main-box {left: 0;}
+.blocks-moving.side-post-only #page-content #region-post-box {margin-left: -260px;}
+.blocks-moving.side-post-only #page-content #region-main {margin-left: 260px;}
+.blocks-moving.side-post-only #page-content #region-post {width: 260px;}
+
+
+*/

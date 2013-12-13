@@ -1,0 +1,14 @@
+id,"Consecutive course #",Course,year,Month,"Ending date"
+,0,9,13,February,Feb/2013
+,1,9,13,May,May/2013
+,2,9,13,September,Sep/2013
+,3,9,13,October,Oct/2013
+,4,14,13,October,Oct/2013
+
+
+id,"Consecutive course #","User id","Employee #"
+,0,314,70884
+,1,63,70851
+,2,29,70890
+,3,59,70823
+,4,54,70503

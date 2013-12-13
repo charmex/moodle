@@ -1,0 +1,203 @@
+<?php
+    global $OUTPUT;
+    // set to defaults if undefined
+    if (!isset($config->location)) {
+        $config->location = '/';
+    }
+    if (!isset($config->name)) {
+        $config->name = '';
+    }
+    if (!isset($config->tblprefix)) {
+        $config->tblprefix = 'drp_';
+    }
+    if (!isset($config->fidfirst)) {
+        $config->fidfirst = '1';
+    }
+    if (!isset($config->fidlast)) {
+        $config->fidlast = '2';
+    }
+    if (!isset($config->curp)) {
+        $config->curp = '';
+    }
+    if (empty($config->debugauthdrupal)) {
+        $config->debugauthdrupal = 0;
+    }
+    if (!isset($config->removeuser)) {
+        $config->removeuser = AUTH_REMOVEUSER_KEEP;
+    }
+
+    $yesno = array( get_string('no'), get_string('yes') );
+
+?>
+<table cellspacing="0" cellpadding="5" border="0">
+
+<tr valign="top" class="required">
+    <td align="right"><label for="location"><?php print_string("auth_drupallocation_key", "auth_drupal") ?></label></td>
+    <td>
+        <input id="location" name="location" type="text" size="30" value="<?php echo $config->location?>" />
+        <?php
+
+        if (isset($err["location"])) {
+            echo $OUTPUT->error_text($err["location"]);
+        }
+
+        ?>
+    </td>
+    <td><?php print_string("auth_drupallocation", "auth_drupal") ?></td>
+</tr>
+
+<tr valign="top" class="required">
+    <td align="right"><label for="name"><?php print_string("auth_drupalname_key", "auth_drupal") ?></label></td>
+    <td>
+        <input id="name" name="name" type="text" size="30" value="<?php echo $config->name?>" />
+        <?php
+
+        if (isset($err["name"])) {
+            echo $OUTPUT->error_text($err["name"]);
+        }
+
+        ?>
+    </td>
+    <td><?php print_string("auth_drupalname", "auth_drupal") ?></td>
+</tr>
+
+<tr valign="top" class="required">
+    <td align="right"><label for="tblprefix"><?php print_string("auth_drupaltblprefix_key", "auth_drupal") ?></label></td>
+    <td>
+        <input id="tblprefix" name="tblprefix" type="text" size="30" value="<?php echo $config->tblprefix?>" />
+        <?php
+
+        if (isset($err["tblprefix"])) {
+            echo $OUTPUT->error_text($err["tblprefix"]);
+        }
+
+        ?>
+    </td>
+    <td><?php print_string("auth_drupaltblprefix", "auth_drupal") ?></td>
+</tr>
+
+<tr valign="top" class="required">
+    <td align="right"><label for="fidfirst"><?php print_string("auth_drupalfidfirst_key", "auth_drupal") ?></label></td>
+    <td>
+        <input id="fidfirst" name="fidfirst" type="text" size="30" value="<?php echo $config->fidfirst?>" />
+        <?php
+
+        if (isset($err["fidfirst"])) {
+            echo $OUTPUT->error_text($err["fidfirst"]);
+        }
+
+        ?>
+    </td>
+    <td><?php print_string("auth_drupalfidfirst", "auth_drupal") ?></td>
+</tr>
+
+<tr valign="top" class="required">
+    <td align="right"><label for="fidlast"><?php print_string("auth_drupalfidlast_key", "auth_drupal") ?></label></td>
+    <td>
+        <input id="fidlast" name="fidlast" type="text" size="30" value="<?php echo $config->fidlast?>" />
+        <?php
+
+        if (isset($err["fidlast"])) {
+            echo $OUTPUT->error_text($err["fidlast"]);
+        }
+
+        ?>
+    </td>
+    <td><?php print_string("auth_drupalfidlast", "auth_drupal") ?></td>
+</tr>
+
+<tr valign="top" class="required">
+    <td align="right"><label for="fidwebpage"><?php print_string("auth_drupalfidwebpage_key", "auth_drupal") ?></label></td>
+    <td>
+        <input id="fidwebpage" name="fidwebpage" type="text" size="30" value="<?php echo $config->fidwebpage?>" />
+        <?php
+
+        if (isset($err["fidwebpage"])) {
+            echo $OUTPUT->error_text($err["fidwebpage"]);
+        }
+
+        ?>
+    </td>
+    <td><?php print_string("auth_drupalfidwebpage", "auth_drupal") ?></td>
+</tr>
+
+<tr valign="top" class="required">
+    <td align="right"><label for="fidinstitution"><?php print_string("auth_drupalfidinstitution_key", "auth_drupal") ?></label></td>
+    <td>
+        <input id="fidinstitution" name="fidinstitution" type="text" size="30" value="<?php echo $config->fidinstitution?>" />
+        <?php
+
+        if (isset($err["fidinstitution"])) {
+            echo $OUTPUT->error_text($err["fidinstitution"]);
+        }
+
+        ?>
+    </td>
+    <td><?php print_string("auth_drupalfidinstitution", "auth_drupal") ?></td>
+</tr>
+
+<tr valign="top" class="required">
+    <td align="right"><label for="fiddepartment"><?php print_string("auth_drupalfiddepartment_key", "auth_drupal") ?></label></td>
+    <td>
+        <input id="fiddepartment" name="fiddepartment" type="text" size="30" value="<?php echo $config->fiddepartment?>" />
+        <?php
+
+        if (isset($err["fiddepartment"])) {
+            echo $OUTPUT->error_text($err["fiddepartment"]);
+        }
+
+        ?>
+    </td>
+    <td><?php print_string("auth_drupalfiddepartment", "auth_drupal") ?></td>
+</tr>
+
+<tr valign="top" class="required">
+    <td align="right"><label for="fididnumber"><?php print_string("auth_drupalfididnumber_key", "auth_drupal") ?></label></td>
+    <td>
+        <input id="fididnumber" name="fididnumber" type="text" size="30" value="<?php echo $config->fididnumber?>" />
+        <?php
+
+        if (isset($err["fididnumber"])) {
+            echo $OUTPUT->error_text($err["fididnumber"]);
+        }
+
+        ?>
+    </td>
+    <td><?php print_string("auth_drupalfididnumber", "auth_drupal") ?></td>
+</tr>
+
+<tr valign="top">
+    <td align="right"><label for="menudebugauthdrupal"><?php print_string("auth_drupaldebugauthdrupal", "auth_drupal") ?></label></td>
+    <td>
+        <?php echo html_writer::select($yesno, 'debugauthdrupal', $config->debugauthdrupal, false); ?>
+    </td>
+    <td><?php print_string("auth_drupaldebugauthdrupalhelp", "auth_drupal") ?></td>
+</tr>
+
+<tr>
+   <td colspan="2">
+        <h4><?php print_string('auth_sync_script', 'auth') ?> </h4>
+   </td>
+</tr>
+
+<tr valign="top">
+    <td align="right"><label for="menuremoveuser"><?php print_string('auth_drupalremove_user_key','auth_drupal') ?></label></td>
+    <td>
+    <?php
+       $deleteopt = array();
+       $deleteopt[AUTH_REMOVEUSER_KEEP] = get_string('auth_remove_keep','auth');
+       $deleteopt[AUTH_REMOVEUSER_SUSPEND] = get_string('auth_remove_suspend','auth');
+       $deleteopt[AUTH_REMOVEUSER_FULLDELETE] = get_string('auth_remove_delete','auth');
+       echo html_writer::select($deleteopt, 'removeuser', $config->removeuser, false);
+    ?>
+    </td>
+    <td>
+    <?php print_string('auth_drupalremove_user','auth_drupal') ?>
+    </td>
+</tr>
+<?php
+
+print_auth_lock_options('drupal', $user_fields, get_string('auth_fieldlocks_help', 'auth'), false, false);
+
+?>
+</table>
