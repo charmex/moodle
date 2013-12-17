@@ -235,18 +235,21 @@ class format_custom extends format_base {
                 $sectionmenu[$i] = "$i";
             }
             $objmenu = array();
-            for ($i = 1; $i <= 5; $i++) {
-                $objmenu[$i] = "$i";
-            }
+            $objmenu[1] = "Actualziar y perfeccionar conocimientos y habilidades";
+            $objmenu[2] = "Proporcionar información de nuevas tecnologías";
+            $objmenu[3] = "Preparar para ocupar vacantes o puestos de nueva creación";
+            $objmenu[4] = "Prevenir riesgos de trabajo";
+            $objmenu[5] = "Incremento a la productividad";
+            
             $hrsmenu = array();
-            $hrsmenu[1] = 1;
-            $hrsmenu[2] = 2;
-            $hrsmenu[30] = 30;
-            $hrsmenu[3] = 3;
+            $hrsmenu[1] = "1 hora";
+            $hrsmenu[2] = "2 horas";
+            $hrsmenu[30] = "30 minutos";
+            $hrsmenu[3] = "3 horas";
             $resetmenu = array();
-            $resetmenu[1] = 1;
-            $resetmenu[2] = 2;
-            $resetmenu[3] = 3;
+            $resetmenu[1] = "1 año";
+            $resetmenu[2] = "2 años";
+            $resetmenu[3] = "3 años";
             $courseformatoptionsedit = array(
                 'numsections' => array(
                     'label' => new lang_string('numberweeks'),

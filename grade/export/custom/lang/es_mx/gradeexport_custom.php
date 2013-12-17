@@ -16,13 +16,13 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'gradeexport_custom', language 'en', branch 'MOODLE_20_STABLE'
+ * Strings for component 'gradeexport_custom', language 'es', branch 'MOODLE_20_STABLE'
  *
  * @package   gradeexport_custom
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'Indelpro report format';
-$string['custom:publish'] = 'Publish custom grade export';
-$string['custom:view'] = 'Use Excel grade export';
+$string['pluginname'] = 'Formato de reporte Indelpro';
+$string['custom:publish'] = 'Exporte de resultados Indelpro';
+$string['custom:view'] = 'Usar exporte de resultados Indelpro';

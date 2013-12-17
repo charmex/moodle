@@ -67,7 +67,7 @@ echo $OUTPUT->doctype() ?>
             <ul class="headerlinks">
                 <li class="headerout"><a href="http://intranet/portal/" title="Página principal" class="active">Inicio</a></li>
                 <li class="headerout"><a href="http://intranet/portal/aviso_privacidad" title="Aviso de privacidad">Aviso de privacidad</a></li>
-                <li id="headeractual"><a href="http://localhost:8080/moodnew" title="Moodle">Portal capacitación</a></li>
+                <li id="headeractual"><a href="http://localhost:8080/moodle" title="Moodle">Portal capacitación</a></li>
             </ul>
         </div>
         <div class="headermenu">

@@ -773,7 +773,7 @@ function check_suspended_users(){
         FROM drupal.users";
     $drupalusers = $DB->get_records_sql($qry);
     $qry = "SELECT id,deleted,username
-        FROM moodnew.mdl_user";
+        FROM moodle.mdl_user";
     $mdlusers = $DB->get_records_sql($qry);
     var_dump($drupalusers);
     echo "================" . "<br>";

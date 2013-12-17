@@ -23,17 +23,17 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['currentsection'] = 'This topic';
-$string['sectionname'] = 'Topic';
-$string['pluginname'] = 'Indelpro format';
+$string['currentsection'] = 'Este tema';
+$string['pluginname'] = 'Formato indelpro';
 $string['section0name'] = 'General';
-$string['page-course-view-custom'] = 'Any course main page in custom format';
-$string['page-course-view-custom-x'] = 'Any course page in custom format';
+$string['page-course-view-custom'] = 'Cualquier pagina principal de curso en formato Indelpro';
+$string['page-course-view-custom-x'] = 'Cualquier pagina de curso en formato Indelpro';
 $string['hidefromothers'] = 'Hide topic';
 $string['showfromothers'] = 'Show topic';
-$string['objective'] = 'Objective';
-$string['hours'] = 'Hours';
-$string['resettime'] = 'Reset period';
-$string['objective_help'] = 'This setting determines the objective of the course.';
-$string['hours_help'] = 'This setting determines the hours the course will take to complete.';
-$string['resettime_help'] = 'This setting determines at what period the user has to retake the course.';
+$string['objective'] = 'Objetivo';
+$string['hours'] = 'Duración';
+$string['resettime'] = 'Tiempo de reset';
+$string['topic'] = 'Tema';
+$string['objective_help'] = 'Esta opcion determina el objetivo del curso.';
+$string['hours_help'] = 'Esta opcion determina las horas que tomara en completarse el curso.';
+$string['resettime_help'] = 'Esta opcion determina el periodo el cual el usuario tiene que retomar el curso.';

@@ -301,7 +301,7 @@ LEFT JOIN
               WHERE cc.course = $params->courseList
               AND timecompleted > 0";
              */
-            $sql = "SELECT @item := id FROM moodnew.mdl_grade_items where courseid = 13 and itemtype = \"mod\" and itemmodule = \"quiz\"";
+            $sql = "SELECT @item := id FROM moodle.mdl_grade_items where courseid = 13 and itemtype = \"mod\" and itemmodule = \"quiz\"";
             $res = $DB->get_record_sql($sql);
             $sql = "SELECT cc.userid, u.firstname, u.lastname, u.idnumber, cc.timecompleted, u.department, u.institution, gg.finalgrade, gi.id itemid,
 		qa.uniqueid qattempt, cc.course courseid, gi.iteminstance

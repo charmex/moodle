@@ -92,8 +92,6 @@ class block_course_overview_renderer extends plugin_renderer_base {
             $listsofcats[$c->category] = $c->category;
         }
         $listofcats = array_unique($listofcats);
-        print_object($listsofcats);
-        print_object($courses);
         //listofcats contains the filtered categories of the courses of the current user
         //
         foreach ($listsofcats as $miau) {
