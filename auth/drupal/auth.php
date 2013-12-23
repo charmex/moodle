@@ -164,17 +164,27 @@ class auth_plugin_drupal extends auth_plugin_base {
          * Original
          */
 //        $cookie = 'SESS' . md5($_SERVER['HTTP_HOST'] . rtrim($this->config->location, '/'));
-/*
- * Produccion
- */
-//        $cookie = 'SESS' . md5("indwebsb" . rtrim($this->config->location, '/'));
-   /*
-    * Desarrollo
-    */
-        $cookie = 'SESS' . md5("localhost" . rtrim($this->config->location, '/'));
+        /*
+         * Produccion
+         */
+        $cookie = 'SESS' . md5("indwebsb" . rtrim($this->config->location, '/'));
+        $cookie2 = 'SESS' . md5("intranet" . rtrim($this->config->location, '/'));
+        /*
+         * Desarrollo
+         */
+//        $cookie = 'SESS' . md5("localhost" . rtrim($this->config->location, '/'));
+//        $cookie2 = 'SESS' . md5("localhost:8085" . rtrim($this->config->location, '/'));
+        
         $drupal_sid = $_COOKIE[$cookie];
+        $drupal_sid2 = $_COOKIE[$cookie2];
+
         if (empty($drupal_sid)) {
-            return; // Drupal session does not exist; send user to login page
+            if (empty($drupal_sid2)) {
+                return; // Drupal session does not exist; send user to login page
+            } else {
+                //Second cookie is correct
+                $drupal_sid = $drupal_sid2;
+            }
         }
 
         // Verify the authenticity of the Drupal session ID
@@ -306,24 +316,31 @@ class auth_plugin_drupal extends auth_plugin_base {
 //        echo $_SERVER['HTTP_HOST'] . "<br>";
 //        echo "<pre>" . $_SERVER . "</pre><br>";
 //        echo $this->config->location . "<br>";
-        
-/*
+
+        /*
          * Original
          */
 //        $cookie = 'SESS' . md5($_SERVER['HTTP_HOST'] . rtrim($this->config->location, '/'));
-/*
- * Produccion
- */
-//        $cookie = 'SESS' . md5("indwebsb" . rtrim($this->config->location, '/'));
-   /*
-    * Desarrollo
-    */
-        $cookie = 'SESS' . md5("localhost" . rtrim($this->config->location, '/'));
-        echo "cookie: " . $cookie . "<br>";
+        /*
+         * Produccion
+         */
+        $cookie = 'SESS' . md5("indwebsb" . rtrim($this->config->location, '/'));
+        $cookie2 = 'SESS' . md5("intranet" . rtrim($this->config->location, '/'));
+        /*
+         * Desarrollo
+         */
+//        $cookie = 'SESS' . md5("localhost" . rtrim($this->config->location, '/'));
+//        $cookie2 = 'SESS' . md5("localhost:8085" . rtrim($this->config->location, '/'));
+        
         $drupal_sid = $_COOKIE[$cookie];
-        echo $drupal_sid . "<br>";
+        $drupal_sid2 = $_COOKIE[$cookie2];
+        
         if (empty($drupal_sid)) {
-            return; // the Drupal session has already been terminated
+            if (empty($drupal_sid2)) {
+                return; // the Drupal session has already been terminated
+            } else {
+                $drupal_sid = $drupal_sid2;
+            }
         }
 
         // remove the session ID from Drupal Database

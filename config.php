@@ -16,6 +16,16 @@ $CFG->dboptions = array (
   'dbsocket' => 0,
 );
 
+/*
+ * Production
+ */
+//$CFG->wwwroot   = 'http://indwebsb:8080/moodle';
+//$CFG->dataroot  = 'E:\\xampp\\moodledata';
+//$CFG->admin     = 'admin';
+
+/*
+ * Development
+ */
 $CFG->wwwroot   = 'http://localhost:8080/moodle';
 $CFG->dataroot  = 'C:\\xampp\\moodledata';
 $CFG->admin     = 'admin';
