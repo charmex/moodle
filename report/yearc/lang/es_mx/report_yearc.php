@@ -23,7 +23,7 @@
  */
 
 
-$string['pluginname'] = 'Reporte de completeo de cursos';
+$string['pluginname'] = 'Reporte de cursos completados';
 $string['globalgrades:view'] = 'Ver reportes anuales de completeo';
 $string['exportclassnotfound'] = 'Export class not found';
 $string['generatereport'] = 'Generate report';

@@ -30,7 +30,7 @@ echo $OUTPUT->header();
 
 //Instantiate simplehtml_form 
 $mform = new yearc_export_form();
-$attrib = array("style" => "table-layout:fixed; width:740px;");
+$attrib = array("id" => "yearc_table");
 $divattrib = array("style" => "overflow-x:scroll; width:100%");
 //Form processing and displaying is done here
 if ($mform->is_cancelled()) {
@@ -57,9 +57,9 @@ if ($mform->is_cancelled()) {
         echo "<br>";
         echo 'Usuarios que completaron el curso: ';
         //Write table inside a scrollable wrapper div
-        echo html_writer::div(html_writer::table($table), "scroll-wrap", $divattrib);
+        echo html_writer::div(html_writer::table($table, "yearc_table"), "scroll-wrap", $divattrib);
         echo 'Usuarios que no han completado el curso: ';
-        echo html_writer::div(html_writer::table($table2), "scroll-wrap", $divattrib);
+        echo html_writer::div(html_writer::table($table2, "yearc_table"), "scroll-wrap", $divattrib);
     } else if ($mform->filter == 2) {
         //Competency matrix for X user
         $mform->display();

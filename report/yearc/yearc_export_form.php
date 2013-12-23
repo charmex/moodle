@@ -285,7 +285,9 @@ LEFT JOIN
             //Gladys report to only report a certain department
             if ($params->deptCheck) {
                 
+               
             }
+            $this->filter = 0;
         }
         //Course completion results, including who hasn't completed the course. This is a global report
         else if ($params->courseCheck == 1 && $params->deptCheck == 0) {

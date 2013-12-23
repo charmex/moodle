@@ -105,8 +105,6 @@ class globalgrades_export_form extends moodleform {
         $mform->setType('id', PARAM_SEQUENCE);
         $mform->addElement('hidden', 'outputformat', $features['outputformat']);
         $mform->setType('outputformat', PARAM_ALPHA);
-        echo "features debugging inside mform";
-        print_object($features['userlist']);
         $this->add_action_buttons(false, get_string('submit'));
     }
 

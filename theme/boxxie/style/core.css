@@ -1119,11 +1119,13 @@ h2.headingblock {
 
 /* Tables */
 
-.generaltable{
-    table-layout: fixed;
+#yearc_table .generaltable{
+/*    table-layout: fixed;
     width: 740px;
     overflow-x: scroll;
+*/
 }
+
 
 #page-mod-glossary-editcategories .generalbox,
 #page-user-action_redir .generaltable,

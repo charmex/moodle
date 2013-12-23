@@ -74,8 +74,6 @@ if ($data = data_submitted()) {
         }
     }
 }
-echo "Printing data";
-print_object($data);
 
 $mform = new globalgrades_export_form(null, array('courseids' => $selectedcourseids,
     'outputformat' => $outputformat, 'userlist' => $data->userlist));
@@ -106,10 +104,9 @@ if ($data = $mform->get_data()) {  // Export page
     if (!class_exists($classname)) {
         print_error('exportclassnotfound', 'report_globalgrades');
     }
-    echo "data being sent to export form";
-    print_object($data);
+    
     $export = new $classname($courses, 0, '', false, false, $data->display, $data->decimals, $data->userlist);
-    echo "Testing something";
+   
     // print the grades on screen for feedbacks
     $export->process_form($data);
     $export->print_continue();

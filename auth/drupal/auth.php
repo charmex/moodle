@@ -157,7 +157,21 @@ class auth_plugin_drupal extends auth_plugin_base {
         global $CFG, $USER, $SESSION, $DB;
 
         // Check if we have a Drupal session.
-        $cookie = 'SESS' . md5($_SERVER['HTTP_HOST'] . rtrim($this->config->location, '/'));
+//        echo $_SERVER['HTTP_HOST'] . "<br>";
+//        echo "<pre>" . $_SERVER . "</pre><br>";
+//        echo $this->config->location . "<br>";
+        /*
+         * Original
+         */
+//        $cookie = 'SESS' . md5($_SERVER['HTTP_HOST'] . rtrim($this->config->location, '/'));
+/*
+ * Produccion
+ */
+//        $cookie = 'SESS' . md5("indwebsb" . rtrim($this->config->location, '/'));
+   /*
+    * Desarrollo
+    */
+        $cookie = 'SESS' . md5("localhost" . rtrim($this->config->location, '/'));
         $drupal_sid = $_COOKIE[$cookie];
         if (empty($drupal_sid)) {
             return; // Drupal session does not exist; send user to login page
@@ -289,8 +303,25 @@ class auth_plugin_drupal extends auth_plugin_base {
         global $CFG, $DB;
 
         // Check whether we still have a Drupal session.
-        $cookie = 'SESS' . md5($_SERVER['HTTP_HOST'] . rtrim($this->config->location, '/'));
+//        echo $_SERVER['HTTP_HOST'] . "<br>";
+//        echo "<pre>" . $_SERVER . "</pre><br>";
+//        echo $this->config->location . "<br>";
+        
+/*
+         * Original
+         */
+//        $cookie = 'SESS' . md5($_SERVER['HTTP_HOST'] . rtrim($this->config->location, '/'));
+/*
+ * Produccion
+ */
+//        $cookie = 'SESS' . md5("indwebsb" . rtrim($this->config->location, '/'));
+   /*
+    * Desarrollo
+    */
+        $cookie = 'SESS' . md5("localhost" . rtrim($this->config->location, '/'));
+        echo "cookie: " . $cookie . "<br>";
         $drupal_sid = $_COOKIE[$cookie];
+        echo $drupal_sid . "<br>";
         if (empty($drupal_sid)) {
             return; // the Drupal session has already been terminated
         }
