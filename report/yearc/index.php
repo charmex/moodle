@@ -44,8 +44,17 @@ if ($mform->is_cancelled()) {
         //Course completency
         $mform->display();
         $courseid = $mform->ycr[0]->courseList;
+        $linkC = "";
+        $linkpar['id'] = $courseid;
+        if (isset($courseid)) {
+                    $linkC = "<a href=\"";
+                    $linkC .= new moodle_url('/grade/report/grader/index.php', $linkpar);
+                    $linkC .= "\">";
+                    $linkC .= "<img src=\"..\..\pix\c\site.png\">";
+                    $linkC .= "</a>";
+                }
         $_course = get_course($courseid);
-        echo 'Listado de completeo del curso ' . $_course->fullname;
+        echo 'Listado de completeo del curso ' . "<h1>" . $_course->fullname . "</h1>" . $linkC;
         $table = new html_table('FilterOneUserCompleted');
         $table->attributes = $attrib;
         $table->head = array("# de empleado", "Nombre", "Apellido", get_string('end_date', 'report_yearc'), get_string('department'), get_string('institution'), "Examen");
