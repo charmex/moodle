@@ -66,6 +66,7 @@ if ($mform->is_cancelled()) {
         $mform = new course_reset_form();
 
     } else {
+        //submit button
         echo $OUTPUT->header();
         echo $OUTPUT->heading($strresetcourse);
 

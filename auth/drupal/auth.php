@@ -324,13 +324,13 @@ class auth_plugin_drupal extends auth_plugin_base {
         /*
          * Produccion
          */
-        $cookie = 'SESS' . md5("indwebsb" . rtrim($this->config->location, '/'));
-        $cookie2 = 'SESS' . md5("intranet" . rtrim($this->config->location, '/'));
+//        $cookie = 'SESS' . md5("indwebsb" . rtrim($this->config->location, '/'));
+//        $cookie2 = 'SESS' . md5("intranet" . rtrim($this->config->location, '/'));
         /*
          * Desarrollo
          */
-//        $cookie = 'SESS' . md5("localhost" . rtrim($this->config->location, '/'));
-//        $cookie2 = 'SESS' . md5("localhost:8085" . rtrim($this->config->location, '/'));
+        $cookie = 'SESS' . md5("localhost" . rtrim($this->config->location, '/'));
+        $cookie2 = 'SESS' . md5("localhost:8085" . rtrim($this->config->location, '/'));
         
         $drupal_sid = $_COOKIE[$cookie];
         $drupal_sid2 = $_COOKIE[$cookie2];

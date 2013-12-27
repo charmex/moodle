@@ -118,11 +118,11 @@ if ($mform->is_cancelled()) {
 //    $mform->addElement('header', 'preview', 'Preview');
         $table = new html_table('tableData');
         $table->attributes = $attrib;
-        $table->head = array('id', get_string('consecutivecourse', 'report_yearc'), get_string('course'), get_string('course_name', 'report_yearc'), get_string('year'), get_string('month'), get_string('end_date', 'report_yearc'), get_string('objective', 'report_yearc'), get_string('hours', 'report_yearc'));
+        $table->head = array(get_string('consecutivecourse', 'report_yearc'), get_string('course'), get_string('course_name', 'report_yearc'), get_string('year'), get_string('month'), get_string('end_date', 'report_yearc'), get_string('objective', 'report_yearc'), get_string('hours', 'report_yearc'));
         $table->data = $mform->ycr;
         $table2 = new html_table('tableDataa');
         $table2->attributes = $attrib;
-        $table2->head = array('id', get_string('consecutivecourse', 'report_yearc'), get_string('userid', 'report_yearc'), get_string('employeenumber', 'report_yearc'), get_string('webpage', 'report_yearc'));
+        $table2->head = array(get_string('consecutivecourse', 'report_yearc'), get_string('employeenumber', 'report_yearc'), get_string('webpage', 'report_yearc'));
         $table2->data = $mform->u;
 //    $mform->addElement('html', '<div class="testHeader">');
 //    $mform->addElement('html', html_writer::table($table));

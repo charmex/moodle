@@ -183,11 +183,13 @@ LEFT JOIN
                 if ($this->DEBUG) {
                     echo "Main \$loopcount : " . $loopcount++ . "<br/>";
                 }
-                $y = new Ycr();
-                $y->ano = $r->ano;
-                $y->mes = $r->mes;
+//                $y = new Ycr();
+                $y = new stdClass;
+                $y->cid = "";
                 $y->course = $r->course;
                 $y->coursename = $r->coursename;
+                $y->ano = $r->ano;
+                $y->mes = $r->mes;
                 $y->timestamp = date("M/Y", $r->timestamp);
                 $y->objective = $r->objective;
                 $y->hours = $r->hours;
@@ -224,11 +226,13 @@ LEFT JOIN
                         }
                     }
 
-                    $us = new User();
-                    $us->userid = $r->uid;
+//                    $us = new User();
+                    $us = new stdClass;
+                    $us->cid = $index;
+                    //$us->userid = $r->uid;
                     $us->idnumber = $r->idnumber;
                     $us->url = $r->url;
-                    $us->cid = $index;
+
                     if ($this->DEBUG) {
                         echo "Adding user: " . "<br/>";
                         print_object($us);
@@ -254,11 +258,12 @@ LEFT JOIN
                     if ($this->DEBUG) {
                         print_object("New record of ycr is : " . $index);
                     }
-                    $us = new User();
-                    $us->userid = $r->uid;
+                    $us = new stdClass;
+                    $us->cid = $index;
+                    //$us->userid = $r->uid;
                     $us->idnumber = $r->idnumber;
                     $us->url = $r->url;
-                    $us->cid = $index;
+                    
                     if ($this->DEBUG) {
                         echo "Adding user: " . "<br/>";
                         print_object($us);
@@ -285,8 +290,18 @@ LEFT JOIN
             //Gladys report to only report a certain department
             if ($params->deptCheck) {
                 
-               
             }
+            
+            //Fix index values to a friendlier version
+            
+            foreach($this->ycr as $key => $i){
+                $i->cid = $i->cid + 1;
+            }
+            
+            foreach($this->u as $key => $i){
+                $i->cid = $i->cid + 1;
+            }
+            
             $this->filter = 0;
         }
         //Course completion results, including who hasn't completed the course. This is a global report
@@ -519,7 +534,7 @@ LEFT JOIN
                 print_object($sql);
                 print_object($res);
             }
-            
+
             $user = new stdClass;
             $user = array($useractual->idnumber, $useractual->firstname, $useractual->lastname);
             foreach ($res as $r) {
@@ -602,7 +617,7 @@ LEFT JOIN
             print_object($res);
         }
         foreach ($res as $row) {
-            $r = new Row();
+            $r = new stdClass;
             $r->uid = $row->userid;
             $r->url = $row->url;
             $r->idnumber = $row->idnumber;
@@ -616,53 +631,53 @@ LEFT JOIN
             $this->rows[] = $r;
         }
     }
-}
-
-class Row {
-
-    public $uid;
-    public $course;
-    public $coursename;
-    public $ano;
-    public $mes;
-    public $idnumber;
-    public $url;
-    public $timestamp;
-    public $objective;
-    public $hours;
-
-    public function setAttr($row1, $row2, $row3, $row4, $row5) {
-        $uid = $row1;
-        $course = $row2;
-        $ano = $row3;
-        $mes = $row4;
-        $idnumber = $row5;
-    }
 
 }
 
-class User {
-
-    public $id;
-    public $cid;
-    public $userid;
-    public $idnumber;
-    public $url;
-
-}
-
-class Ycr {
-
-    public $id;
-    public $cid;
-    public $course;
-    public $coursename;
-    public $ano;
-    public $mes;
-    public $timestamp;
-    public $objective;
-    public $hours;
-
-}
-
+//class Row {
+//
+//    public $uid;
+//    public $course;
+//    public $coursename;
+//    public $ano;
+//    public $mes;
+//    public $idnumber;
+//    public $url;
+//    public $timestamp;
+//    public $objective;
+//    public $hours;
+//
+//    public function setAttr($row1, $row2, $row3, $row4, $row5) {
+//        $uid = $row1;
+//        $course = $row2;
+//        $ano = $row3;
+//        $mes = $row4;
+//        $idnumber = $row5;
+//    }
+//
+//}
+//
+//class User {
+//
+//    public $id;
+//    public $cid;
+//    public $userid;
+//    public $idnumber;
+//    public $url;
+//
+//}
+//
+//class Ycr {
+//
+//    public $id;
+//    public $cid;
+//    public $course;
+//    public $coursename;
+//    public $ano;
+//    public $mes;
+//    public $timestamp;
+//    public $objective;
+//    public $hours;
+//
+//}
 ?>

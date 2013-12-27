@@ -5848,7 +5848,7 @@ function reset_password_and_mail($user) {
     $messagehtml = text_to_html(get_string('emailconfirmation', '', $data), false, false, true);
 
     $user->mailformat = 1;  // Always send HTML version as well
-
+    
     //directly email rather than using the messaging system to ensure its not routed to a popup or jabber
     return email_to_user($user, $supportuser, $subject, $message, $messagehtml);
 

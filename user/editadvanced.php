@@ -24,21 +24,21 @@
  */
 
 require_once('../config.php');
-require_once($CFG->libdir.'/gdlib.php');
-require_once($CFG->libdir.'/adminlib.php');
-require_once($CFG->dirroot.'/user/editadvanced_form.php');
-require_once($CFG->dirroot.'/user/editlib.php');
-require_once($CFG->dirroot.'/user/profile/lib.php');
+require_once($CFG->libdir . '/gdlib.php');
+require_once($CFG->libdir . '/adminlib.php');
+require_once($CFG->dirroot . '/user/editadvanced_form.php');
+require_once($CFG->dirroot . '/user/editlib.php');
+require_once($CFG->dirroot . '/user/profile/lib.php');
 
 //HTTPS is required in this page when $CFG->loginhttps enabled
 $PAGE->https_required();
 
-$id     = optional_param('id', $USER->id, PARAM_INT);    // user id; -1 if creating new user
+$id = optional_param('id', $USER->id, PARAM_INT);    // user id; -1 if creating new user
 $course = optional_param('course', SITEID, PARAM_INT);   // course id (defaults to Site)
 
-$PAGE->set_url('/user/editadvanced.php', array('course'=>$course, 'id'=>$id));
+$PAGE->set_url('/user/editadvanced.php', array('course' => $course, 'id' => $id));
 
-$course = $DB->get_record('course', array('id'=>$course), '*', MUST_EXIST);
+$course = $DB->get_record('course', array('id' => $course), '*', MUST_EXIST);
 
 if (!empty($USER->newadminuser)) {
     $PAGE->set_course($SITE);
@@ -67,7 +67,7 @@ if ($id == -1) {
 } else {
     // editing existing user
     require_capability('moodle/user:update', $systemcontext);
-    $user = $DB->get_record('user', array('id'=>$id), '*', MUST_EXIST);
+    $user = $DB->get_record('user', array('id' => $id), '*', MUST_EXIST);
     $PAGE->set_context(context_user::instance($user->id));
     if ($user->id == $USER->id) {
         if ($course->id != SITEID && $node = $PAGE->navigation->find($course->id, navigation_node::TYPE_COURSE)) {
@@ -107,18 +107,18 @@ profile_load_data($user);
 
 //User interests
 if (!empty($CFG->usetags)) {
-    require_once($CFG->dirroot.'/tag/lib.php');
+    require_once($CFG->dirroot . '/tag/lib.php');
     $user->interests = tag_get_tags_array('user', $id);
 }
 
 if ($user->id !== -1) {
     $usercontext = context_user::instance($user->id);
     $editoroptions = array(
-        'maxfiles'   => EDITOR_UNLIMITED_FILES,
-        'maxbytes'   => $CFG->maxbytes,
-        'trusttext'  => false,
+        'maxfiles' => EDITOR_UNLIMITED_FILES,
+        'maxbytes' => $CFG->maxbytes,
+        'trusttext' => false,
         'forcehttps' => false,
-        'context'    => $usercontext
+        'context' => $usercontext
     );
 
     $user = file_prepare_standard_editor($user, 'description', $editoroptions, $usercontext, 'user', 'profile', 0);
@@ -126,10 +126,10 @@ if ($user->id !== -1) {
     $usercontext = null;
     // This is a new user, we don't want to add files here
     $editoroptions = array(
-        'maxfiles'=>0,
-        'maxbytes'=>0,
-        'trusttext'=>false,
-        'forcehttps'=>false,
+        'maxfiles' => 0,
+        'maxbytes' => 0,
+        'trusttext' => false,
+        'forcehttps' => false,
         'context' => $coursecontext
     );
 }
@@ -137,10 +137,10 @@ if ($user->id !== -1) {
 // Prepare filemanager draft area.
 $draftitemid = 0;
 $filemanagercontext = $editoroptions['context'];
-$filemanageroptions = array('maxbytes'       => $CFG->maxbytes,
-                             'subdirs'        => 0,
-                             'maxfiles'       => 1,
-                             'accepted_types' => 'web_image');
+$filemanageroptions = array('maxbytes' => $CFG->maxbytes,
+    'subdirs' => 0,
+    'maxfiles' => 1,
+    'accepted_types' => 'web_image');
 file_prepare_draft_area($draftitemid, $filemanagercontext->id, 'user', 'newicon', 0, $filemanageroptions);
 $user->imagefile = $draftitemid;
 //create form
@@ -167,18 +167,26 @@ if ($usernew = $userform->get_data()) {
         unset($usernew->id);
         $usernew = file_postupdate_standard_editor($usernew, 'description', $editoroptions, null, 'user', 'profile', null);
         $usernew->mnethostid = $CFG->mnet_localhost_id; // always local user
-        $usernew->confirmed  = 1;
+        $usernew->confirmed = 1;
         $usernew->timecreated = time();
         $usernew->password = hash_internal_user_password($usernew->newpassword);
         $usernew->id = $DB->insert_record('user', $usernew);
+
+        $contact = new object();
+        $contact->firstname = "Super";
+        $contact->lastname = "Administrador";
+        $contact->email = "psistemas@indelpro.com";
+        $subject = "Nuevo usuario registrado";
+        $message = "El usuario $usernew->firstname $usernew->lastname con nombre de usuario $usernew->username ha sido registrado.";
+        $messagehtml = $message;
+        email_to_user($contact, $contact, $subject, $message, $messagehtml);
         $usercreated = true;
         add_to_log($course->id, 'user', 'add', "view.php?id=$usernew->id&course=$course->id", '');
-
     } else {
         $usernew = file_postupdate_standard_editor($usernew, 'description', $editoroptions, $usercontext, 'user', 'profile', 0);
         $DB->update_record('user', $usernew);
         // pass a true $userold here
-        if (! $authplugin->user_update($user, $userform->get_data())) {
+        if (!$authplugin->user_update($user, $userform->get_data())) {
             // auth update failed, rollback for moodle
             $DB->update_record('user', $user);
             print_error('cannotupdateuseronexauth', '', '', $user->auth);
@@ -188,7 +196,7 @@ if ($usernew = $userform->get_data()) {
         //set new password if specified
         if (!empty($usernew->newpassword)) {
             if ($authplugin->can_change_password()) {
-                if (!$authplugin->user_update_password($usernew, $usernew->newpassword)){
+                if (!$authplugin->user_update_password($usernew, $usernew->newpassword)) {
                     print_error('cannotupdatepasswordonextauth', '', '', $usernew->auth);
                 }
                 unset_user_preference('create_password', $usernew); // prevent cron from generating the password
@@ -228,7 +236,7 @@ if ($usernew = $userform->get_data()) {
     profile_save_data($usernew);
 
     // reload from db
-    $usernew = $DB->get_record('user', array('id'=>$usernew->id));
+    $usernew = $DB->get_record('user', array('id' => $usernew->id));
 
     // trigger events
     if ($usercreated) {
@@ -239,7 +247,7 @@ if ($usernew = $userform->get_data()) {
 
     if ($user->id == $USER->id) {
         // Override old $USER session variable
-        foreach ((array)$usernew as $variable => $value) {
+        foreach ((array) $usernew as $variable => $value) {
             $USER->$variable = $value;
         }
         // preload custom fields
@@ -248,7 +256,7 @@ if ($usernew = $userform->get_data()) {
         if (!empty($USER->newadminuser)) {
             unset($USER->newadminuser);
             // apply defaults again - some of them might depend on admin user info, backup, roles, etc.
-            admin_apply_default_settings(NULL , false);
+            admin_apply_default_settings(NULL, false);
             // redirect to admin/ to continue with installation
             redirect("$CFG->wwwroot/$CFG->admin/");
         } else {
@@ -289,9 +297,9 @@ if ($user->id == -1 or ($user->id != $USER->id)) {
     echo '<br />';
 } else {
     $streditmyprofile = get_string('editmyprofile');
-    $strparticipants  = get_string('participants');
-    $strnewuser       = get_string('newuser');
-    $userfullname     = fullname($user, true);
+    $strparticipants = get_string('participants');
+    $strnewuser = get_string('newuser');
+    $userfullname = fullname($user, true);
 
     $PAGE->set_title("$course->shortname: $streditmyprofile");
     $PAGE->set_heading($course->fullname);
