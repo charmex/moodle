@@ -33,6 +33,7 @@ $CFG->admin     = 'admin';
 $CFG->directorypermissions = 0777;
 
 $CFG->defaultblocks_override = 'completionstatus,navigation,settings:';
+$CFG->keeptempdirectoriesonbackup = true;
 require_once(dirname(__FILE__) . '/lib/setup.php');
 
 // There is no php closing tag in this file,
