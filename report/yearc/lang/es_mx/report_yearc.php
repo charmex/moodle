@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -21,8 +22,6 @@
  * @author Eugene Venter <eugene@catalyst.net.nz>
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-
 $string['pluginname'] = 'Reporte de cursos completados';
 $string['globalgrades:view'] = 'Ver reportes anuales de completeo';
 $string['exportclassnotfound'] = 'Export class not found';
@@ -37,6 +36,7 @@ $string['preview'] = 'Preview:';
 $string['consecutivecourse'] = "# consecutivo de curso";
 $string['userid'] = "Id de usuario";
 $string['employeenumber'] = "# de empleado";
+$string['employee_number'] = "# de empleado";
 $string['webpage'] = "CURP";
 $string['objective'] = "Objetivo";
 $string['hours'] = "Horas";
@@ -44,5 +44,10 @@ $string['end_date'] = "Fecha de termino";
 $string['short_name'] = "Nombre corto";
 $string['course_name'] = "Nombre del curso";
 $string['download_c'] = "Descargar como csv";
+$string['name'] = "Nombre";
+$string['last_name'] = "Apellido";
+$string['department'] = "Departamento";
+$string['institution'] = "Puesto";
+$string['quiz'] = "Examen";
 $string['yearc:view'] = 'Reporte de avance de cursos';
 ?>

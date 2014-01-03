@@ -30,87 +30,44 @@ echo $OUTPUT->header();
 
 //Instantiate simplehtml_form 
 $mform = new yearc_export_form();
-$attrib = array("id" => "yearc_table");
-$divattrib = array("style" => "overflow-x:scroll; width:100%");
 //Form processing and displaying is done here
 if ($mform->is_cancelled()) {
     //Handle form cancel operation, if cancel button is present on form
 } else if ($data = $mform->get_data()) {
     //In this case you process validated data. $mform->get_data() returns data posted in form.
     //print_object($data);
-    
+
     $mform->createYearlyReport($data);
     if ($mform->filter == 1) {
         //Course completency
         $mform->display();
-        $courseid = $mform->ycr[0]->courseList;
-        $linkC = "";
-        $linkpar['id'] = $courseid;
-        if (isset($courseid)) {
-                    $linkC = "<a href=\"";
-                    $linkC .= new moodle_url('/grade/report/grader/index.php', $linkpar);
-                    $linkC .= "\">";
-                    $linkC .= "<img src=\"..\..\pix\c\site.png\">";
-                    $linkC .= "</a>";
-                }
-        $_course = get_course($courseid);
-        echo 'Listado de completeo del curso ' . "<h1>" . $_course->fullname . "</h1>" . $linkC;
-        $table = new html_table('FilterOneUserCompleted');
-        $table->attributes = $attrib;
-        $table->head = array("# de empleado", "Nombre", "Apellido", get_string('end_date', 'report_yearc'), get_string('department'), get_string('institution'), "Examen");
-        $table->data = $mform->userC;
-        $table2 = new html_table('FilterOneUserNotCompleted');
-        $table2->attributes = $attrib;
-        $table2->head = array("# de empleado", "Nombre", "Apellido", "Departamento", "Puesto", "Examen");
-        $table2->data = $mform->userNC;
-        echo "<br>";
-        echo 'Usuarios que completaron el curso: ';
-        //Write table inside a scrollable wrapper div
-        echo html_writer::div(html_writer::table($table, "yearc_table"), "scroll-wrap", $divattrib);
-        echo 'Usuarios que no han completado el curso: ';
-        echo html_writer::div(html_writer::table($table2, "yearc_table"), "scroll-wrap", $divattrib);
+        courseHeader($mform->ycr[0]->courseList);
+        $table = buildTable('course1', "FilterOneUserCompleted", $mform->userC);
+        $table2 = buildTable('course2', "FilterOneUserNotCompleted", $mform->userNC);
+        drawTable("Usuarios que completaron el curso", $table, "yearc_table");
+        drawTable("Usuarios que no han completado el curso", $table2, "yearc_table");
     } else if ($mform->filter == 2) {
         //Competency matrix for X user
         $mform->display();
-        $table = new html_table('FilterTwoUsers');
-        $table->attributes = $attrib;
-        $table->head = array("# de empleado", "Nombre", "Apellido");
-        $table->data = $mform->u;
-        $table2 = new html_table('FilterTwoCoursesCompleted');
-        $table2->attributes = $attrib;
-        $table2->head = array(get_string('course_name', 'report_yearc'), get_string('end_date', 'report_yearc'), get_string('category'), "Examen");
-        $table2->data = $mform->courseC;
-        $table3 = new html_table('FilterTwoCoursesNotCompleted');
-        $table3->attributes = $attrib;
-        $table3->head = array(get_string('course_name', 'report_yearc'), get_string('short_name', 'report_yearc'), get_string('category'), "Examen");
-        $table3->data = $mform->courseNC;
-        echo "Usuario: ";
-        echo html_writer::div(html_writer::table($table), "scroll-wrap", $divattrib);
-        echo "Lista de cursos completados: ";
-        echo html_writer::div(html_writer::table($table2), "scroll-wrap", $divattrib);
-        echo "Lista de cursos no completados: ";
-        echo html_writer::div(html_writer::table($table3), "scroll-wrap", $divattrib);
+        $table = buildTable('user1', "FilterTwoUsers", $mform->u);
+        $table2 = buildTable('user2', "FilterTwoCoursesCompleted", $mform->courseC);
+        $table3 = buildTable('user2', "FilterTwoCoursesNotCompleted", $mform->courseNC);
+        drawTable("Usuario:", $table, "yearc_table");
+        drawTable("Lista de cursos completados:", $table2, "yearc_table");
+        drawTable("Lista de cursos no completados:", $table3, "yearc_table");
         echo $mform->gradinginfo;
     } else if ($mform->filter == 3) {
         //Department competency
         $mform->display();
         $courseids = $mform->courseref;
         foreach ($courseids as $cids) {
-            $_course = get_course($cids);
-            echo 'Listado de completeo del curso ' . $_course->fullname;
-            $table = new html_table('FilterThreeDeptCompleted');
-            $table->attributes = $attrib;
-            $table->head = array("# de empleado", "Nombre", "Apellido", get_string('end_date', 'report_yearc'), get_string('department'), get_string('institution'));
-            $table->data = $mform->deptUserCompleted[$cids];
-            $table2 = new html_table('FilterOneUserNotCompleted');
-            $table2->attributes = $attrib;
-            $table2->head = array("# de empleado", "Nombre", "Apellido", "Departamento", "Puesto");
-            $table2->data = $mform->deptUserNotCompleted[$cids];
-            echo "<br>";
-            echo 'Usuarios que completaron el curso: ';
-            echo html_writer::div(html_writer::table($table), "scroll-wrap", $divattrib);
-            echo 'Usuarios que no han completado el curso: ';
-            echo html_writer::div(html_writer::table($table2), "scroll-wrap", $divattrib);
+            echo html_writer::start_div("bgpt");
+            courseHeader($cids);
+            echo html_writer::end_div();
+            $table = buildTable('course1', "FilterThreeDeptCompleted", $mform->deptUserCompleted[$cids]);
+            $table2 = buildTable('course2', "FilterOneUserNotCompleted", $mform->deptUserNotCompleted[$cids]);
+            drawTable("Usuarios que completaron el curso: ", $table, "yearc_table");
+            drawTable("Usuarios que no han completado el curso: ", $table2, "yearc_table");
         }
     } else {
         $mform->display();
@@ -141,6 +98,54 @@ if ($mform->is_cancelled()) {
     $mform->display();
 }
 echo $OUTPUT->footer();
+
+function courseHeader($cid) {
+//    $courseid = $mform->ycr[0]->courseList;
+    $courseid = $cid;
+    $linkC = "";
+    $linkpar['id'] = $courseid;
+    if (isset($courseid)) {
+        $linkC = "<a href=\"";
+        $linkC .= new moodle_url('/grade/report/grader/index.php', $linkpar);
+        $linkC .= "\">";
+        $linkC .= "<img src=\"..\..\pix\c\site.png\">";
+        $linkC .= "</a>";
+    }
+    $_course = get_course($courseid);
+    echo "\n " . "<h1>" . $_course->fullname . "</h1>";
+    echo "<h2>Enlace a calificaciones del curso: " . $linkC . "</h2>";
+}
+
+function drawTable($header, $table, $title) {
+    $divattrib = array("style" => "overflow-x:scroll; width:100%");
+    echo "<h2>" . $header . "</h2>";
+    echo html_writer::div(html_writer::table($table, $title), "scroll-wrap", $divattrib);
+}
+
+function buildTable($filter, $name, $data) {
+    $attrib = array("id" => "yearc_table");
+    $head;
+    switch ($filter) {
+        case 'course1':
+            $head = array('# de empleado', 'Nombre', 'Apellido', 'Fecha de termino', 'Departamento', 'Puesto', 'Examen');
+            break;
+        case 'course2':
+            $head = array('# de empleado', 'Nombre', 'Apellido', 'Departamento', 'Puesto', 'Examen');
+            break;
+        case 'user1':
+            $head = array('# de empleado', 'Nombre', 'Apellido');
+            break;
+        case 'user2':
+            $head = array('Nombre de curso', 'Nombre corto', 'Categoria', 'Examen');
+            break;
+    }
+
+    $table = new html_table($name);
+    $table->attributes = $attrib;
+    $table->head = $head;
+    $table->data = $data;
+    return $table;
+}
 
 function Download($path, $speed = null) {
     if (is_file($path) === true) {

@@ -217,6 +217,9 @@ function fixlog($savepath, $d1) {
     return 0;
 }
 
+/*
+ * Makes sure the folders being used by this script exists or don't do anything at all.
+ */
 function createFolders($savepath, $exitonerrors = true) {
     if (!file_exists($savepath)) {
         $suc = mkdir($savepath, 0777, true);

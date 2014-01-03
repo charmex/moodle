@@ -7,7 +7,9 @@ body {
     font-size: 12px
 }
 
-
+.bgpt{
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAUElEQVQYV2NkYGAwBuKzQAwDID4IoIgxIikAMZE1oRiArBDdZBSNMIXoJiFbDZYDKcSmCOYimDuNSVKIzRNYrUYOFuQgweoZbIoxgoeoAAcAEckW11HVTfcAAAAASUVORK5CYII=);
+}
 
 #page-wrapper {
     /*margin: 10px 5%;*/
@@ -1120,10 +1122,10 @@ h2.headingblock {
 /* Tables */
 
 #yearc_table .generaltable{
-/*    table-layout: fixed;
-    width: 740px;
-    overflow-x: scroll;
-*/
+    /*    table-layout: fixed;
+        width: 740px;
+        overflow-x: scroll;
+    */
 }
 
 
