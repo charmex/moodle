@@ -71,21 +71,10 @@ if ($mform->is_cancelled()) {
         }
     } else {
         $mform->display();
-//    print_object($mform->ycr);
-//    $mform->addElement('header', 'preview', 'Preview');
-        $table = new html_table('tableData');
-        $table->attributes = $attrib;
-        $table->head = array(get_string('consecutivecourse', 'report_yearc'), get_string('course'), get_string('course_name', 'report_yearc'), get_string('year'), get_string('month'), get_string('end_date', 'report_yearc'), get_string('objective', 'report_yearc'), get_string('hours', 'report_yearc'));
-        $table->data = $mform->ycr;
-        $table2 = new html_table('tableDataa');
-        $table2->attributes = $attrib;
-        $table2->head = array(get_string('consecutivecourse', 'report_yearc'), get_string('employeenumber', 'report_yearc'), get_string('webpage', 'report_yearc'));
-        $table2->data = $mform->u;
-//    $mform->addElement('html', '<div class="testHeader">');
-//    $mform->addElement('html', html_writer::table($table));
-
-        echo html_writer::div(html_writer::table($table), "scroll-wrap", $divattrib);
-        echo html_writer::div(html_writer::table($table2), "scroll-wrap", $divattrib);
+        $table = buildTable('yearc1', "tableData", $mform->ycr);
+        $table2 = buildTable('yearc2', "tableData", $mform->u);
+        drawTable("Cursos:", $table, "yearc_table");
+        drawTable("Usuarios:", $table2, "yearc_table");
         $filename = outputCSV($table, $table2);
         echo html_writer::link($filename, get_string("download_c", "report_yearc"));
     }
@@ -94,13 +83,11 @@ if ($mform->is_cancelled()) {
     // or on the first display of the form.
     //Set default data (if any)
     //displays the form
-//    createYearlyReport();
     $mform->display();
 }
 echo $OUTPUT->footer();
 
 function courseHeader($cid) {
-//    $courseid = $mform->ycr[0]->courseList;
     $courseid = $cid;
     $linkC = "";
     $linkpar['id'] = $courseid;
@@ -137,6 +124,12 @@ function buildTable($filter, $name, $data) {
             break;
         case 'user2':
             $head = array('Nombre de curso', 'Nombre corto', 'Categoria', 'Examen');
+            break;
+        case 'yearc1':
+            $head = array('# consecutivo de curso', 'Curso', 'Nombre de curso', 'Año','Mes','Fecha de termino','Objetivo de curso', 'Duracion de curso');
+            break;
+        case 'yearc2':
+            $head = array('# consecutivo de curso', '# de empleado', 'CURP');
             break;
     }
 
