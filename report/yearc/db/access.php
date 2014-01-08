@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -16,16 +17,14 @@
 
 /**
  * @package report
- * @category globalgrades
- * @copyright 2013 Catalyst IT
- * @author Eugene Venter <eugene@catalyst.net.nz>
+ * @category yearc
+ * @copyright 2013 Carlos Rubalcava
+ * @author Carlos Rubalcava <ce.rubalcava@hotmail.com>
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
 defined('MOODLE_INTERNAL') || die();
 
 $capabilities = array(
-
     'report/yearc:view' => array(
         'riskbitmask' => RISK_PERSONAL,
         'captype' => 'read',
@@ -33,7 +32,7 @@ $capabilities = array(
         'archetypes' => array(
             'manager' => CAP_ALLOW
         ),
-
-        'clonepermissionsfrom' => 'coursereport/yearc:view',
-    )
+        
+        'clonepermissionsfrom' => 'coursereport/log:view',
+    ),
 );

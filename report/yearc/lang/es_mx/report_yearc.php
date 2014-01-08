@@ -50,4 +50,9 @@ $string['department'] = "Departamento";
 $string['institution'] = "Puesto";
 $string['quiz'] = "Examen";
 $string['yearc:view'] = 'Reporte de avance de cursos';
+
+$string['page-report-yearc-x'] = 'Cualquier reporte de curso completado';
+$string['page-report-yearc-index'] = 'Reporte de curso completado';
+$string['page-report-yearc-user'] = 'Reporte de curso completado usuario';
+
 ?>
