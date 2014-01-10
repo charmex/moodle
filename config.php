@@ -31,8 +31,14 @@ $CFG->dataroot  = 'C:\\xampp\\moodledata';
 $CFG->admin     = 'admin';
 
 $CFG->directorypermissions = 0777;
+$CFG->divertallemailsto = 'psistemas@indelpro.com';
 
 $CFG->defaultblocks_override = 'completionstatus,navigation,settings:';
+$CFG->defaultblocks_my = 'completionstatus,navigation,settings:';
+$CFG->defaultblocks_topics = 'completionstatus,navigation,settings:';
+$CFG->defaultblocks_custom = 'completionstatus,navigation,settings:';
+$CFG->defaultblocks_site = 'navigation,settings:';
+
 $CFG->keeptempdirectoriesonbackup = true;
 require_once(dirname(__FILE__) . '/lib/setup.php');
 

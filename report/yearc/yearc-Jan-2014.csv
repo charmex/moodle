@@ -1,9 +1,5 @@
-"# consecutivo de curso",Curso,"Nombre de curso",Año,Mes,"Fecha de termino","Objetivo de curso","Duracion de curso"
-1,9,"Practica con extintores",13,December,Dec/2013,1,1
-2,13,"Amenaza de huracán",13,December,Dec/2013,1,1
+"# de empleado",Nombre,Apellido,"Fecha de termino",Departamento,Puesto,Examen
 
 
-"# consecutivo de curso","# de empleado",CURP
-1,70281,
-1,70504,
-2,70822,
+"# de empleado",Nombre,Apellido,Departamento,Puesto,Examen
+70890,Jaime,Alvarado,Producción,"Operador de Campo",

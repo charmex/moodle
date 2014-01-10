@@ -39,7 +39,6 @@ class yearc_export_form extends moodleform {
         }
 
         $mform->addElement('advcheckbox', 'courseCheck', 'Por curso', '', array('group' => 2), array(0, 1));
-        //$mform->addElement('advcheckbox', 'coursefaltante', 'Faltantes', '', array('group' => 2), array(0, 1));
         $mform->addElement('select', 'courseList', 'Nombre de curso', $courselist);
 
         $users = get_users_listing();
@@ -77,8 +76,7 @@ class yearc_export_form extends moodleform {
             $this->yearlyReport($params);
             return 0;
         } else if ($params->courseCheck == 1 && $params->deptCheck == 0) {
-            $this->courseCompetency($params);
-            return 0;
+            return $this->courseCompetency($params);
         } else if ($params->deptCheck == 1) {
             $this->departmentCompetency($params);
             return 0;
@@ -113,14 +111,18 @@ class yearc_export_form extends moodleform {
 
     //Course completion results, including who hasn't completed the course. This is a global report
     function courseCompetency($params) {
-        global $DB;
+        global $DB, $USER;
 
+//        $subordinates = $this->getSubordinates();
+//        if (!is_array($subordinates)) {
+//            return 1;
+//        }
         $_course_participants = get_course_participants($params->courseList);
         $participants = array();
         foreach ($_course_participants as $cp) {
             $participants[$cp->id] = $cp;
         }
-
+        
         //Set in database variable @item the id of the quiz
         $sql = "SELECT @item := id FROM moodle.mdl_grade_items where courseid = $params->courseList and itemtype = \"mod\" and itemmodule = \"quiz\"";
         $res = $DB->get_record_sql($sql);
@@ -329,7 +331,7 @@ class yearc_export_form extends moodleform {
             $this->deptUserCompleted[$course->id] = $userCompleted;
             $this->deptUserNotCompleted[$course->id] = $userNotCompleted;
         }
-        
+
         //Filter to one course only
         if ($params->courseCheck == 1) {
             
@@ -634,6 +636,52 @@ LEFT JOIN
         return 0;
     }
 
-}
+    function getSubordinates() {
+        global $DB, $USER;
+        $subordinates = array();
+        $qry = "SELECT id FROM mdl_area WHERE name = \"$USER->institution\"";
+        $res = $DB->get_records_sql($qry);
 
+        $boss;
+        if ($res) {
+            $boss->isBoss = $res->isBoss;
+            $boss->name = $res->name;
+            $boss->id = $res->id;
+            $boss->parent = $res->parent;
+        } else {
+            return "Permiso inexistente, reportar a sistemas.";
+        }
+
+        //Make sure it's a boss
+        if ($boss->isBoss == 0) {
+            return "Área restringida BEEP BEEP";
+        }
+
+        $qry = "SELECT id FROM mdl_area WHERE parent = \"$boss->id\"";
+        $res = $DB->get_records_sql($qry);
+
+        $ids = array();
+        if ($res) {
+            foreach ($res as $r) {
+                $subordinates[] = $r;
+                $ids[] = $r;
+            }
+        }
+
+        for ($i = 1; i < $boss->isBoss; $i++) {
+            $qry = "SELECT id FROM mdl_area WHERE parent IN (" . implode(",", $ids) . ")";
+            $res = $DB->get_records_sql($qry);
+            $ids = array();
+            if ($res) {
+                foreach ($res as $r) {
+                    $subordinates[] = $r;
+                    $ids[] = $r;
+                }
+            }
+        }
+
+        return $subordinates;
+    }
+
+}
 ?>

@@ -21,46 +21,61 @@
  * @author: Juan leyva <http://www.twitter.com/jleyvadelgado>
  * @date: 2009
  */
-function export_reportt($report) {
-    global $DB, $CFG;
-    require_once($CFG->dirroot . '/lib/excellib.class.php');
+require_once('../../../../config.php');
+require_once($CFG->libdir . '/adminlib.php');
+require_once($CFG->libdir . '/gradelib.php');
+require_once($CFG->dirroot . '/course/lib.php');
+require_once $CFG->dirroot . '/grade/lib.php';
+require_once($CFG->dirroot . '/report/yearc/yearc_export_form.php');
+require_once($CFG->dirroot . '/lib/excellib.class.php');
 
-    $table = $report;
-    $matrix = array();
-    $filename = 'report_yearc_' . (time()) . '.xls';
+global $DB, $CFG;
 
-    if (!empty($table->head)) {
-        $countcols = count($table->head);
-        $keys = array_keys($table->head);
-        $lastkey = end($keys);
-        foreach ($table->head as $key => $heading) {
-            $matrix[0][$key] = str_replace("\n", ' ', htmlspecialchars_decode(strip_tags(nl2br($heading))));
-        }
+$table = $_SESSION['tablecontents'];
+$matrix = array();
+$filename = 'report_yearc_' . (time()) . '.xls';
+
+if (!empty($table->head)) {
+    $countcols = count($table->head);
+    $keys = array_keys($table->head);
+    $lastkey = end($keys);
+    foreach ($table->head as $key => $heading) {
+        $matrix[0][$key] = str_replace("\n", ' ', htmlspecialchars_decode(strip_tags(nl2br($heading))));
     }
-
-    if (!empty($table->data)) {
-        foreach ($table->data as $rkey => $row) {
-            foreach ($row as $key => $item) {
-                $matrix[$rkey + 1][$key] = str_replace("\n", ' ', htmlspecialchars_decode(strip_tags(nl2br($item))));
-            }
-        }
-    }
-
-    $downloadfilename = clean_filename($filename);
-    /// Creating a workbook
-    $workbook = new MoodleExcelWorkbook("-");
-    /// Sending HTTP headers
-    $workbook->send($downloadfilename);
-    /// Adding the worksheet
-    $myxls = & $workbook->add_worksheet($filename);
-
-    foreach ($matrix as $ri => $col) {
-        foreach ($col as $ci => $cv) {
-            $myxls->write_string($ri, $ci, $cv);
-        }
-    }
-
-    $workbook->close();
-    exit;
 }
+
+$i = 1;
+if (!empty($table->data)) {
+    foreach ($table->data as $rkey => $row) {
+        $j = 0;
+        foreach ($row as $key => $item) {
+//            $matrix[$rkey + 1][$key] = str_replace("\n", ' ', htmlspecialchars_decode(strip_tags(nl2br($item))));
+            $matrix[$i][$j++] = str_replace("\n", ' ', htmlspecialchars_decode(strip_tags(nl2br($item))));
+        }
+        $i++;
+    }
+}
+
+$downloadfilename = clean_filename($filename);
+/// Creating a workbook
+$workbook = new MoodleExcelWorkbook("test");
+/// Sending HTTP headers
+$workbook->send($downloadfilename);
+/// Adding the worksheet
+$myxls = $workbook->add_worksheet("reporte");
+
+//header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+//header("Content-Disposition: attachment;filename=$downloadfilename");
+//header('Cache-Control: max-age=0');
+
+
+foreach ($matrix as $ri => $col) {
+    foreach ($col as $ci => $cv) {
+        $myxls->write_string($ri, $ci, $cv);
+    }
+}
+
+$workbook->close();
+exit;
+
 
