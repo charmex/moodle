@@ -117,8 +117,9 @@ foreach ($courses as $c) {
 
             $status = "";
             $output = "";
+            $php = "C:/xampp/php/php.exe";
             $savename = $c->shortname . "-" . $c->id . "-" . $d2->format('Y-m-d') . "--" . $d1->format('Y-m-d') . "---" . $d1->format('Hi') . "----auto.mbz";
-            $exec = "php backup.php --course=" . $c->id . " --destination=" . $savepath . " --customfilename=" . $savename;
+            $exec = "$php backup.php --course=" . $c->id . " --destination=" . $savepath . " --customfilename=" . $savename;
             exec($exec, $output, $status);
             if ($status == 1) {
                 $out = "status = $status" . checkModal();
@@ -134,7 +135,7 @@ foreach ($courses as $c) {
                 consolelog($out, $savepath, $consoleoutput, $log, $d1);
                 $status = "";
                 $output = "";
-                $exec = "php Delete_user_contents.php --course=" . $c->id;
+                $exec = "$php Delete_user_contents.php --course=" . $c->id;
                 exec($exec, $output, $status);
                 if ($status == 1) {
                     $out = "status = $status" . checkModal();
