@@ -1,5 +1,4 @@
-"# de empleado",Nombre,Apellido,"Fecha de termino",Departamento,Puesto,Examen
+"# consecutivo de curso",Curso,"Nombre de curso",Año,Mes,"Fecha de termino","Objetivo de curso","Duracion de curso"
 
 
-"# de empleado",Nombre,Apellido,Departamento,Puesto,Examen
-70890,Jaime,Alvarado,Producción,"Operador de Campo",
+"# consecutivo de curso","# de empleado",CURP

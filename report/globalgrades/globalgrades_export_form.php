@@ -34,8 +34,6 @@ class globalgrades_export_form extends moodleform {
         $mform = & $this->_form;
         if (isset($this->_customdata)) {  // hardcoding plugin names here is hacky
             $features = $this->_customdata;
-            echo "printing features";
-            print_object($features);
         } else {
             $features = array();
         }
@@ -68,8 +66,6 @@ class globalgrades_export_form extends moodleform {
         $needs_multiselect = false;
         foreach ($features['courseids'] as $courseid) {
             $switch = grade_get_setting($courseid, 'aggregationposition', $CFG->grade_aggregationposition);
-//            $query = "SELECT fullname FROM mdl_course WHERE id = $courseid";
-//            $courseN = get_records_sql($query);
             $courseN = $DB->get_record('course', array('id' => $courseid));
             //print_object($courseN);
             // Grab the grade_seq for this course

@@ -113,10 +113,11 @@ class yearc_export_form extends moodleform {
     function courseCompetency($params) {
         global $DB, $USER;
 
-//        $subordinates = $this->getSubordinates();
-//        if (!is_array($subordinates)) {
-//            return 1;
-//        }
+        $subordinates = $this->getSubordinates();
+        if (!is_array($subordinates)) {
+            return $subordinates;
+        }
+        print_object($subordinates);
         $_course_participants = get_course_participants($params->courseList);
         $participants = array();
         foreach ($_course_participants as $cp) {
@@ -639,19 +640,23 @@ LEFT JOIN
     function getSubordinates() {
         global $DB, $USER;
         $subordinates = array();
-        $qry = "SELECT id FROM mdl_area WHERE name = \"$USER->institution\"";
+        $qry = "SELECT * FROM mdl_puesto WHERE name = \"$USER->institution\"";
         $res = $DB->get_records_sql($qry);
-
+        print_object($qry);
+        print_object($res);
+        
         $boss;
-        if ($res) {
+        if (!$res) {
+            return "Permiso inexistente, reportar a sistemas.";
+        } else {
             $boss->isBoss = $res->isBoss;
             $boss->name = $res->name;
             $boss->id = $res->id;
             $boss->parent = $res->parent;
-        } else {
-            return "Permiso inexistente, reportar a sistemas.";
         }
-
+        //TODO: find correct array position
+        print_object($boss);
+        echo $boss->isboss;
         //Make sure it's a boss
         if ($boss->isBoss == 0) {
             return "Área restringida BEEP BEEP";
