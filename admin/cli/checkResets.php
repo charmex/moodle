@@ -5,7 +5,7 @@ ini_set('display_errors', '1');
 
 define('CLI_SCRIPT', true);    // To run from the command line. Delete it if you want to run from a browser
 require('/../../config.php');
-
+global $USER, $DB, $OUTPUT, $CFG;
 
 /*
  * Load CLI libraries if we are doing a cli script
@@ -14,7 +14,7 @@ if (CLI_SCRIPT) {
     require_once($CFG->libdir . '/clilib.php');      // cli only functions
 }
 
-global $USER, $DB, $OUTPUT;
+
 
 /*
  * * We don't want to output header when it's a CLI script since there's no browser
@@ -84,7 +84,6 @@ WHERE
 $courses = $DB->get_records_sql($sql);
 
 print_object($courses);
-
 foreach ($courses as $c) {
     $out = "Checking id: " . $c->id . " Name: " . $c->fullname . checkModal();
     consolelog($out, $savepath, $consoleoutput, $log, $d1);
