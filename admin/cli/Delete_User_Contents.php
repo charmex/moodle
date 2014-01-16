@@ -15,7 +15,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
 define('CLI_SCRIPT', true);    // To run from the command line. Delete it if you want to run from a browser
-require('../../config.php');
+require('/../../config.php');
 require_once($CFG->libdir . '/clilib.php');      // cli only functions
 
 // now get cli options
