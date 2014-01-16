@@ -5,7 +5,7 @@ ini_set('display_errors', '1');
 
 define('CLI_SCRIPT', true);    // To run from the command line. Delete it if you want to run from a browser
 require('/../../config.php');
-global $USER, $DB, $OUTPUT, $CFG;
+global $CFG;
 
 /*
  * Load CLI libraries if we are doing a cli script
@@ -14,7 +14,7 @@ if (CLI_SCRIPT) {
     require_once($CFG->libdir . '/clilib.php');      // cli only functions
 }
 
-
+global $USER, $DB, $OUTPUT;
 
 /*
  * * We don't want to output header when it's a CLI script since there's no browser
@@ -30,11 +30,12 @@ $exitonerrors;
 $log;
 $consoleoutput;
 $savepath;
+
 if (CLI_SCRIPT) {
     list($options, $unrecognized) = cli_get_params(array(
         'savepath' => $CFG->dirroot . "\coursebackups\\",
         'exitonerrors' => false,
-        'log' => true,
+        'log' => false,
         'consoleoutput' => true,
         'help' => false,
             ), array('h' => 'help'));
@@ -60,6 +61,10 @@ Options:
         echo $help;
         die;
     }
+    $savepath = $options['savepath'];
+    $exitonerrors = $options['exitonerrors'];
+    $log = $options['log'];
+    $consoleoutput = $options['consoleoutput'];
 } else {
     $exitonerrors = false;
     $log = true;
@@ -83,7 +88,6 @@ WHERE
     c.id > 1;";
 $courses = $DB->get_records_sql($sql);
 
-print_object($courses);
 foreach ($courses as $c) {
     $out = "Checking id: " . $c->id . " Name: " . $c->fullname . checkModal();
     consolelog($out, $savepath, $consoleoutput, $log, $d1);
@@ -186,12 +190,21 @@ function checkModal() {
  */
 
 function consolelog($out, $savepath, $consoleoutput, $log, $d1) {
-
+    
     if ($consoleoutput) {
-        echo $out;
+        if (CLI_SCRIPT) {   
+            echo $out; 
+        } else {
+            echo $out;
+        }
+
     }
     if ($log) {
-        file_put_contents($savepath . "/log/" . $d1->format("Y-m-d-Hi"), $out, FILE_APPEND);
+        if (!CLI_SCRIPT) {
+            file_put_contents($savepath . "/log/" . $d1->format("Y-m-d-Hi"), $out, FILE_APPEND);
+        } else {
+            file_put_contents($savepath . "/log/" . $d1->format("Y-m-d-Hi"), $out, FILE_APPEND);
+        }
     }
     return 0;
 }
@@ -220,6 +233,7 @@ function fixlog($savepath, $d1) {
 /*
  * Makes sure the folders being used by this script exists or don't do anything at all.
  */
+
 function createFolders($savepath, $exitonerrors = true) {
     if (!file_exists($savepath)) {
         $suc = mkdir($savepath, 0777, true);
